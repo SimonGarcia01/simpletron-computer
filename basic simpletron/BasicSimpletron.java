@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class BasicSimpletron {
 
     //ATTRIBUTES
@@ -6,6 +8,7 @@ public class BasicSimpletron {
     private int instructionCounter = 0;
     private int operationCode = 0;
     private int operand = 0;
+    private int instructionRegister = 0;
 
     //OPERATION CODES
     //Input and Output
@@ -33,15 +36,50 @@ public class BasicSimpletron {
 
     //Main Method
     public static void main(String[] args) {
-        BasicSimpletron simpletron = new BasicSimpletron();
         System.out.println("*** Welcome to Basic Simpletron! ***");
         System.out.println("*** Please enter your program one instruction (or data word) at a time. ***");
         System.out.println("*** I will display the location number and a question mark (?). ***");
         System.out.println("*** You then type the word for that location. ***");
         System.out.println("*** Type -99999 to stop entering your program. ***");
+    
+        BasicSimpletron simpletron = new BasicSimpletron();
+
+        simpletron.loadProgram();
+
+        System.out.println("*** Program loading completed ***");
+        System.out.println("*** Program execution begins  ***");
+
+        for(int i : simpletron.memory){
+            System.out.printf("%+05d%n", i);
+        }
     }
 
     public BasicSimpletron() {
         //Default Constructor
     }
+
+    public void loadProgram(){
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("*** Enter your program instructions ***");
+        for(int i = 0; i < memory.length; i++){
+            System.out.printf("%02d ? ", i);
+            int input = scanner.nextInt();
+
+            if(input == -99999){
+                break;
+            } else if(input < 1000 || input > 4300){
+                System.out.println("*** Invalid input. Please enter a value between -9999 and +9999 ***");
+                i--;
+                continue;
+            }
+
+            memory[i] = input;
+        }
+
+        scanner.close();
+    }
+
+    //Getters and Setters
+
 }
