@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class BasicSimpletron {
 
     //ATTRIBUTES
-    private static int[] memory = new int[100];
+    private static double[] memory = new double[100];
     private static double accumulator = 0.0;
     private static int instructionCounter = 0;
     private static int operationCode = 0;
@@ -31,6 +31,8 @@ public class BasicSimpletron {
     private static final int BRANCHNEG = 41;
     private static final int BRANCHZERO = 42;
     private static final int HALT = 43;
+    
+    private static final int BREAK_POINT = -99999;
 
     //Other attributes
     private static Scanner scanner = new Scanner(System.in);
@@ -53,17 +55,17 @@ public class BasicSimpletron {
 
         //Now we start the actual execution of the program
 
-        // while(true){
-        //     //Fetch the instruction
-        //     instructionRegister = memory[instructionCounter];
+        while(true){
+            //Fetch the instruction
+            instructionRegister = (int) memory[instructionCounter];
 
-        //     //Decode the instruction
-        //     operationCode = instructionRegister / 100;
-        //     operand = instructionRegister % 100;
+            //Decode the instruction
+            operationCode = instructionRegister / 100;
+            operand = instructionRegister % 100;
 
-        //     //Now decide what to do based on the code
-        //     // executeInstruction();
-        // }
+            //Now decide what to do based on the code
+            executeInstruction();
+        }
         
         //Close the scanner at the end
         scanner.close();
@@ -78,14 +80,14 @@ public class BasicSimpletron {
     public static void loadProgram(){
         System.out.println("*** Enter your program instructions ***");
 
-        int input;
+        double input;
     
         for(int i = 0; i < memory.length; i++){
             
-            //Just to make sure the input is an integer
+            //Just to make sure the input is an integer or double
             try{
                 System.out.printf("%02d ? ", i);
-                input = scanner.nextInt();
+                input = scanner.nextDouble();
             } catch (Exception e){
                 System.out.println("*** Invalid input. Please enter an integer. ***");
                 // consume the invalid token so the scanner can continue
@@ -95,7 +97,7 @@ public class BasicSimpletron {
             }
 
             //Break if the breaking point value is entered
-            if(input == -99999){
+            if(input == BREAK_POINT){
                 break;
             } 
 
@@ -105,28 +107,49 @@ public class BasicSimpletron {
     }
 
     //This is where I execute the instructions
-    // private static void executeInstruction() {
-    //     switch(operationCode){
-    //         //Input and Output
-    //         case READ:
-    //         case WRITE:
+    private static void executeInstruction() {
+        switch(operationCode){
+            //Input and Output
+            case READ -> {
+                System.out.print("Enter a value: ");
+                double value;
+
+                while (true) {
+                    try {
+                        value = scanner.nextDouble();
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("*** Invalid input. Please enter a number. ***");
+                        scanner.nextLine();
+                    }
+                }
+
+                //Store the value if it is valid
+                memory[operand] = value;
+                //Go to the next instruction
+                instructionCounter++;
+            }
+
+            case WRITE -> {
+
+            }
             
-    //         //Load and store
-    //         case LOAD:
-    //         case STORE:
+            //Load and store
+            case LOAD -> {}
+            case STORE -> {}
 
-    //         //Arithmethic Operations
-    //         case ADD:
-    //         case SUBTRACT:
-    //         case DIVIDE:
-    //         case MULTIPLY:
-    //         case MODULO:
+            //Arithmethic Operations
+            case ADD -> {} 
+            case SUBTRACT -> {}
+            case DIVIDE -> {}
+            case MULTIPLY -> {}
+            case MODULO -> {}
 
-    //         //Control Operations
-    //         case BRANCH:
-    //         case BRANCHNEG:
-    //         case BRANCHZERO:
-    //         case HALT:
-    //     }
-    //}
+            //Control Operations
+            case BRANCH -> {}
+            case BRANCHNEG -> {}
+            case BRANCHZERO -> {}
+            case HALT -> {}
+        }
+    }
 }
