@@ -32,6 +32,9 @@ public class BasicSimpletron {
     private static final int BRANCHZERO = 42;
     private static final int HALT = 43;
 
+    //Other attributes
+    private static Scanner scanner = new Scanner(System.in);
+
     //METHODS
 
     //Main Method
@@ -50,18 +53,20 @@ public class BasicSimpletron {
 
         //Now we start the actual execution of the program
 
-        while(true){
-            //Fetch the instruction
-            instructionRegister = memory[instructionCounter];
+        // while(true){
+        //     //Fetch the instruction
+        //     instructionRegister = memory[instructionCounter];
 
-            //Decode the instruction
-            operationCode = instructionRegister / 100;
-            operand = instructionRegister % 100;
+        //     //Decode the instruction
+        //     operationCode = instructionRegister / 100;
+        //     operand = instructionRegister % 100;
 
-            //Now decide what to do based on the code
-            executeInstruction();
-        }
+        //     //Now decide what to do based on the code
+        //     // executeInstruction();
+        // }
         
+        //Close the scanner at the end
+        scanner.close();
     }
 
     //Leaving this but I'm going to work this basic version with static methods
@@ -71,50 +76,57 @@ public class BasicSimpletron {
 
     //This is where I load the program into memory
     public static void loadProgram(){
-
-        Scanner scanner = new Scanner(System.in);
         System.out.println("*** Enter your program instructions ***");
-        for(int i = 0; i < memory.length; i++){
-            System.out.printf("%02d ? ", i);
-            int input = scanner.nextInt();
 
-            if(input == -99999){
-                break;
-            } else if(input < 1000 || input > 4399){
-                System.out.println("*** Invalid input. Please enter a value between -9999 and +9999 ***");
+        int input;
+    
+        for(int i = 0; i < memory.length; i++){
+            
+            //Just to make sure the input is an integer
+            try{
+                System.out.printf("%02d ? ", i);
+                input = scanner.nextInt();
+            } catch (Exception e){
+                System.out.println("*** Invalid input. Please enter an integer. ***");
+                // consume the invalid token so the scanner can continue
+                scanner.nextLine();
                 i--;
                 continue;
             }
 
+            //Break if the breaking point value is entered
+            if(input == -99999){
+                break;
+            } 
+
+            //Store in memory the input
             memory[i] = input;
         }
-
-        scanner.close();
     }
 
     //This is where I execute the instructions
-    private static void executeInstruction() {
-        switch(operationCode){
-            //Input and Output
-            case READ:
-            case WRITE:
+    // private static void executeInstruction() {
+    //     switch(operationCode){
+    //         //Input and Output
+    //         case READ:
+    //         case WRITE:
             
-            //Load and store
-            case LOAD:
-            case STORE:
+    //         //Load and store
+    //         case LOAD:
+    //         case STORE:
 
-            //Arithmethic Operations
-            case ADD:
-            case SUBTRACT:
-            case DIVIDE:
-            case MULTIPLY:
-            case MODULO:
+    //         //Arithmethic Operations
+    //         case ADD:
+    //         case SUBTRACT:
+    //         case DIVIDE:
+    //         case MULTIPLY:
+    //         case MODULO:
 
-            //Control Operations
-            case BRANCH:
-            case BRANCHNEG:
-            case BRANCHZERO:
-            case HALT:
-        }
-    }
+    //         //Control Operations
+    //         case BRANCH:
+    //         case BRANCHNEG:
+    //         case BRANCHZERO:
+    //         case HALT:
+    //     }
+    //}
 }
