@@ -9,6 +9,7 @@ public class BasicSimpletron {
     private static int operationCode = 0;
     private static int operand = 0;
     private static int instructionRegister = 0;
+
     //OPERATION CODES
     //Input and Output
     private static final int READ = 10;
