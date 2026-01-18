@@ -42,15 +42,26 @@ public class BasicSimpletron {
         System.out.println("*** You then type the word for that location. ***");
         System.out.println("*** Type -99999 to stop entering your program. ***");
 
-
+        //First we load the program into memory
         loadProgram();
 
         System.out.println("*** Program loading completed ***");
         System.out.println("*** Program execution begins  ***");
 
-        for(int i : memory){
-            System.out.printf("%+05d%n", i);
+        //Now we start the actual execution of the program
+
+        while(true){
+            //Fetch the instruction
+            instructionRegister = memory[instructionCounter];
+
+            //Decode the instruction
+            operationCode = instructionRegister / 100;
+            operand = instructionRegister % 100;
+
+            //Now decide what to do based on the code
+            executeInstruction();
         }
+        
     }
 
     //Leaving this but I'm going to work this basic version with static methods
@@ -58,6 +69,7 @@ public class BasicSimpletron {
         //Default Constructor
     }
 
+    //This is where I load the program into memory
     public static void loadProgram(){
 
         Scanner scanner = new Scanner(System.in);
@@ -68,7 +80,7 @@ public class BasicSimpletron {
 
             if(input == -99999){
                 break;
-            } else if(input < 1000 || input > 4300){
+            } else if(input < 1000 || input > 4399){
                 System.out.println("*** Invalid input. Please enter a value between -9999 and +9999 ***");
                 i--;
                 continue;
@@ -78,5 +90,31 @@ public class BasicSimpletron {
         }
 
         scanner.close();
+    }
+
+    //This is where I execute the instructions
+    private static void executeInstruction() {
+        switch(operationCode){
+            //Input and Output
+            case READ:
+            case WRITE:
+            
+            //Load and store
+            case LOAD:
+            case STORE:
+
+            //Arithmethic Operations
+            case ADD:
+            case SUBTRACT:
+            case DIVIDE:
+            case MULTIPLY:
+            case MODULO:
+
+            //Control Operations
+            case BRANCH:
+            case BRANCHNEG:
+            case BRANCHZERO:
+            case HALT:
+        }
     }
 }
