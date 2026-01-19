@@ -1,0 +1,19 @@
+#First you must enter the number of numbers you are going to add
+#Then enter 1 (reduces the counter by 1)
+#The enter every number and press ENTER
+#The result will be printed at the end.
++1020
++1021
++2020
++3121
++4112 
++2120
++1022
++2023
++3022
++2123
++3123
++4202
++1123
++4300
+-99999
