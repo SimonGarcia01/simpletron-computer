@@ -64,7 +64,19 @@ public class BasicSimpletron {
             operand = instructionRegister % 100;
 
             //Now decide what to do based on the code
-            executeInstruction();
+
+            try{
+                //Eventhough the arithmetic exceptions are not checked,
+                //I wanted to handle it specifically to show the error message and practice exception handling
+                executeInstruction();
+            } catch (ArithmeticException e){
+                System.out.println(e.getMessage());
+                System.out.println("*** Simpletron execution terminated ***");
+                //Close the scanner at the end regardless heh
+                scanner.close();
+                //End the program
+                System.exit(0);
+            }
         }
     }
 
@@ -115,7 +127,7 @@ public class BasicSimpletron {
     }
 
     //This is where I execute the instructions
-    private static void executeInstruction() {
+    private static void executeInstruction() throws ArithmeticException {
         switch(operationCode){
 
             //Input and Output
@@ -181,6 +193,11 @@ public class BasicSimpletron {
             }
 
             case DIVIDE -> {
+                //Check if dividing by zero first
+                if(memory[operand] == 0){
+                    throw new ArithmeticException("*** Error: Division by zero ***");
+                }
+                
                 //Divide the value from memory to the accumulator
                 accumulator /= memory[operand];
 
