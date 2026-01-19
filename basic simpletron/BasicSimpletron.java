@@ -66,9 +66,6 @@ public class BasicSimpletron {
             //Now decide what to do based on the code
             executeInstruction();
         }
-        
-        //Close the scanner at the end
-        scanner.close();
     }
 
     //Leaving this but I'm going to work this basic version with static methods
@@ -198,10 +195,76 @@ public class BasicSimpletron {
             }
 
             //Control Operations
-            case BRANCH -> {}
-            case BRANCHNEG -> {}
-            case BRANCHZERO -> {}
-            case HALT -> {}
+            case BRANCH -> {
+                //Change the instruction counter to the operand value to change location
+                instructionCounter = operand;
+
+                //No need to increment instruction counter
+                // since we are changing its value directly
+            }
+
+            case BRANCHNEG -> {
+                //Branch somewhere if the accumulator is < 0
+                if(accumulator <0){
+                    //Go to the operand location
+                    instructionCounter = operand;
+                } else {
+                    //Go to the next instruction normally
+                    instructionCounter++;
+                }
+            }
+
+            case BRANCHZERO -> {
+                //Branch somewhere if the accumulator is == 0
+                if(accumulator == 0){
+                    //Go to the operand location
+                    instructionCounter = operand;
+                } else {
+                    //Go to the next instruction normally
+                    instructionCounter++;
+                }
+            }
+            case HALT -> {
+                //Halt the program completely
+                System.out.println("*** Simpletron execution terminated ***");
+
+                //Close the scanner at the end
+                scanner.close();
+
+                //Show the final state of the machine
+                System.out.println("REGISTERS:");
+                System.out.println("accumulator          : " + String.format("%+05.2f", accumulator));
+                System.out.println("instructionCounter   : " + String.format("%02d", instructionCounter));
+                System.out.println("instructionRegister  : " + String.format("%+05d", instructionRegister));
+                System.out.println("operationCode        : " + String.format("%02d", operationCode));
+
+                //Display memory contents
+                System.out.println("\nMEMORY CONTENTS:");
+                System.out.println("*************************************************************");
+                for(int i = 0; i < 10; i++){
+                    System.out.printf("%6d", i);
+                }
+
+                System.out.println();
+
+                for(int i = 0; i < memory.length; i++){
+                    //to print the line numbers on the left of every 10 memory locations
+                    if(i % 10 == 0){
+                        System.out.printf("%02d ", i);
+                    }
+                    //To print the memory contents
+                    System.out.printf(" %+05.2f", memory[i]);
+                    
+                    //Add a little spacing between every row of 10 locations
+                    if((i + 1) % 10 == 0){
+                        System.out.println();
+                    }
+                }
+
+                System.out.println("*************************************************************");
+                //Stop the program
+                System.exit(0);
+            }
         }
     }
 }
