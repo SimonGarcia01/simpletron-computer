@@ -109,6 +109,7 @@ public class BasicSimpletron {
     //This is where I execute the instructions
     private static void executeInstruction() {
         switch(operationCode){
+
             //Input and Output
             case READ -> {
                 System.out.print("Enter a value: ");
@@ -131,7 +132,10 @@ public class BasicSimpletron {
             }
 
             case WRITE -> {
-
+                System.out.println("Value at memory location " + operand + ": " + memory[operand]);
+                
+                //Go to the next instruction
+                instructionCounter++;
             }
             
             //Load and store
