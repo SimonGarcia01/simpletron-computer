@@ -76,6 +76,8 @@ public class BasicSimpletron {
     //This is where I load the program into memory
     public static void loadProgram(){
         System.out.println("*** Enter your program instructions ***");
+        System.out.println("*** Remember to enter instructions from +1000 to +4399");
+        System.out.println("*** To stop entering the program, type -99999 ***");
 
         double input;
     
@@ -85,6 +87,20 @@ public class BasicSimpletron {
             try{
                 System.out.printf("%02d ? ", i);
                 input = scanner.nextDouble();
+
+                //Break if the breaking point value is entered
+                if(input == BREAK_POINT){
+                    break;
+                } 
+
+                if(input < 1000 || input > 4399) {
+                    System.out.println("*** Invalid input. Please enter a value between +1000 and +4399. ***");
+                    //Consume inalid number so the scanner can continue
+                    scanner.nextLine();
+                    i--;
+                    continue;
+                }
+
             } catch (Exception e){
                 System.out.println("*** Invalid input. Please enter an integer. ***");
                 // consume the invalid token so the scanner can continue
@@ -92,11 +108,6 @@ public class BasicSimpletron {
                 i--;
                 continue;
             }
-
-            //Break if the breaking point value is entered
-            if(input == BREAK_POINT){
-                break;
-            } 
 
             //Store in memory the input
             memory[i] = input;
