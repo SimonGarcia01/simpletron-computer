@@ -139,8 +139,21 @@ public class BasicSimpletron {
             }
             
             //Load and store
-            case LOAD -> {}
-            case STORE -> {}
+            case LOAD -> {
+                //Load the value from memoy into the accumulator
+                accumulator = memory[operand];
+
+                //Go to the next instruction
+                instructionCounter++;
+            }
+
+            case STORE -> {
+                //Store the value of the accumulator into memory
+                memory[operand] = accumulator;
+
+                //Go to the next instruction
+                instructionCounter++;
+            }
 
             //Arithmethic Operations
             case ADD -> {} 
