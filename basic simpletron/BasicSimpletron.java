@@ -156,11 +156,46 @@ public class BasicSimpletron {
             }
 
             //Arithmethic Operations
-            case ADD -> {} 
-            case SUBTRACT -> {}
-            case DIVIDE -> {}
-            case MULTIPLY -> {}
-            case MODULO -> {}
+            case ADD -> {
+                //Add the value from memory to the accumulator
+                accumulator += memory[operand];
+
+                //Go to the next instruction
+                instructionCounter++;
+            } 
+
+            case SUBTRACT -> {
+                //Substract the value from memory to the accumulator
+                accumulator -= memory[operand];
+
+                //Go to the next instruction
+                instructionCounter++;
+            }
+
+            case DIVIDE -> {
+                //Divide the value from memory to the accumulator
+                accumulator /= memory[operand];
+
+                //Go to the next instruction
+                instructionCounter++;
+            }
+        
+
+            case MULTIPLY -> {
+                //Multiply the value from memory to the accumulator
+                accumulator *= memory[operand];
+
+                //Go to the next instruction
+                instructionCounter++;
+            }
+
+            case MODULO -> {
+                //Do the modulus operation on the value from memory to the accumulator
+                accumulator %= memory[operand];
+
+                //Go to the next instruction
+                instructionCounter++;
+            }
 
             //Control Operations
             case BRANCH -> {}
