@@ -3,7 +3,8 @@ import java.util.Scanner;
 public class BasicSimpletron {
 
     //ATTRIBUTES
-    private static double[] memory = new double[100];
+    //Extending the memory to 1000 locations
+    private static double[] memory = new double[1000];
     private static double accumulator = 0.0;
     private static int instructionCounter = 0;
     private static int operationCode = 0;
