@@ -25,6 +25,7 @@ public class BasicSimpletron {
     private static final int DIVIDE = 32;
     private static final int MULTIPLY = 33;
     private static final int MODULO = 34;
+    private static final int EXPONENTIATION = 35;
 
     //Control Operations
     private static final int BRANCH = 40;
@@ -217,6 +218,14 @@ public class BasicSimpletron {
             case MODULO -> {
                 //Do the modulus operation on the value from memory to the accumulator
                 accumulator %= memory[operand];
+
+                //Go to the next instruction
+                instructionCounter++;
+            }
+
+            case EXPONENTIATION -> {
+                //Raise the accumulator to the power of the value from memory
+                accumulator = Math.pow(accumulator, memory[operand]);
 
                 //Go to the next instruction
                 instructionCounter++;
